@@ -2,6 +2,12 @@ import React from "react"
 import TodoItem from "../todo_item"
 
 class TodoList extends React.Component {
+  toggleStatus = (todoId) => {
+    const toggleStatus = this.props.onToggleStatus
+
+    toggleStatus(todoId)
+  }
+
   render() {
     const todos = this.props.todos
 
@@ -9,7 +15,7 @@ class TodoList extends React.Component {
       <ul>
         {todos.map(todo =>
           <li key={todo.id}>
-            <TodoItem id={todo.id} content={todo.content} completed={todo.completed} />
+            <TodoItem onToggleStatus={() => this.toggleStatus(todo.id)} id={todo.id} content={todo.content} completed={todo.completed} />
           </li>
         )}
       </ul>
