@@ -8,7 +8,7 @@ class TodoList extends React.Component {
     return (
       <ul>
         {todos.map(todo =>
-          <li>
+          <li key={todo.id}>
             <TodoItem id={todo.id} content={todo.content} completed={todo.completed} />
           </li>
         )}

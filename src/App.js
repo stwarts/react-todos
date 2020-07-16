@@ -1,5 +1,6 @@
-import React from 'react';
-import TodoList from './components/todo_list'
+import React from "react";
+import TodoList from "./components/todo_list"
+import TodoForm from "./components/todo_form"
 
 class App extends React.Component {
   constructor(props) {
@@ -21,9 +22,20 @@ class App extends React.Component {
     }
   }
 
+  createTodo = (newTodo) => {
+    const oldTodos = this.state.todos
+
+    this.setState({
+      todos: [...oldTodos, newTodo]
+    })
+  }
+
   render() {
-    return(
-      <TodoList todos={this.state.todos}/>
+    return (
+      <div>
+        <TodoForm createTodo={this.createTodo} />
+        <TodoList todos={this.state.todos} />
+      </div>
     )
   }
 }
