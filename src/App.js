@@ -41,7 +41,12 @@ class App extends React.Component {
   }
 
   deleteTodo = (todoId) => {
-    console.log(`deleting ${todoId}...`)
+    const todos = this.state.todos
+    const newTodos = todos.filter(todo => todo.id !== todoId)
+
+    this.setState({
+      todos: newTodos
+    })
   }
 
   editTodo = (todoId) => {
