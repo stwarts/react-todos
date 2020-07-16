@@ -1,21 +1,14 @@
 import React from 'react'
 
 class TodoItem extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      id: 1,
-      content: "Test",
-      completed: false
-    }
-  }
-
   render() {
+    const { id, completed, content } = this.props
+
     return(
       <div>
-        <span>{this.state.completed ? "Complete" : "Incomplete"}</span>
-        <span>&nbsp;{this.state.content}</span>
+        <span>{id}</span>
+        <span>&nbsp;{completed ? "Complete" : "Incomplete"}</span>
+        <span>&nbsp;{content}</span>
       </div>
     )
   }
