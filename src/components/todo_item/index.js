@@ -1,6 +1,15 @@
 import React from 'react'
 
 class TodoItem extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      editable: false,
+      newContent: "newContent"
+    }
+  }
+
   handleClick = (e) => {
     const toggleStatus = this.props.onToggleStatus
 
@@ -8,9 +17,18 @@ class TodoItem extends React.Component {
   }
 
   handleEditTodo = () => {
-    const editTodo = this.props.onEditTodo
+    const { editable } = this.state
 
-    editTodo()
+    if (editable) {
+      const editTodo = this.props.onEditTodo
+
+      editTodo(this.state.newContent)
+    }
+
+    this.setState({
+      ...this.state,
+      editable: !editable,
+    })
   }
 
   handleDeleteTodo = () => {
@@ -30,7 +48,7 @@ class TodoItem extends React.Component {
           <span>&nbsp;{content}</span>
         </span>
         <span>
-          <span onClick={this.handleEditTodo}>&nbsp;Edit</span>
+          <span onClick={this.handleEditTodo}>&nbsp;{this.state.editable ? "Commit" : "Edit"}</span>
           <span onClick={this.handleDeleteTodo}>&nbsp;Delete</span>
         </span>
       </div>

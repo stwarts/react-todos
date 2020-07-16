@@ -14,10 +14,10 @@ class TodoList extends React.Component {
     deleteTodo(todoId)
   }
 
-  editTodo = (todoId) => {
+  editTodo = (todoId, newContent) => {
     const editTodo = this.props.onEditTodo
 
-    editTodo(todoId)
+    editTodo(todoId, newContent)
   }
 
   render() {
@@ -32,7 +32,7 @@ class TodoList extends React.Component {
               content={todo.content}
               completed={todo.completed}
               onToggleStatus={() => this.toggleStatus(todo.id)}
-              onEditTodo={() => this.editTodo(todo.id)}
+              onEditTodo={(newContent) => this.editTodo(todo.id, newContent)}
               onDeleteTodo={() => this.deleteTodo(todo.id)}
             />
           </li>
