@@ -40,11 +40,24 @@ class App extends React.Component {
     })
   }
 
+  deleteTodo = (todoId) => {
+    console.log(`deleting ${todoId}...`)
+  }
+
+  editTodo = (todoId) => {
+    console.log(`editing ${todoId}...`)
+  }
+
   render() {
     return (
       <div>
         <TodoForm onCreateTodo={this.createTodo} />
-        <TodoList onToggleStatus={this.toggleStatus} todos={this.state.todos} />
+        <TodoList
+          todos={this.state.todos}
+          onToggleStatus={this.toggleStatus}
+          onEditTodo={this.editTodo}
+          onDeleteTodo={this.deleteTodo}
+        />
       </div>
     )
   }
