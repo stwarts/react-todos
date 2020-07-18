@@ -17,7 +17,7 @@ class TodoList extends React.Component {
   editTodo = (todoId, newContent) => {
     const editTodo = this.props.onEditTodo
 
-    return editTodo(todoId, newContent)
+    editTodo(todoId, newContent)
   }
 
   render() {

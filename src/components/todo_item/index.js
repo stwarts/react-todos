@@ -10,12 +10,6 @@ class TodoItem extends React.Component {
     }
   }
 
-  handleClick = (e) => {
-    const toggleStatus = this.props.onToggleStatus
-
-    toggleStatus()
-  }
-
   toggleEditForm = () => {
     const { editable } = this.state
 
@@ -26,29 +20,26 @@ class TodoItem extends React.Component {
   }
 
   handleDeleteTodo = () => {
-    const deleteTodo = this.props.onDeleteTodo
+    const { onDeleteTodo: deleteTodo } = this.props
 
     deleteTodo()
   }
 
   render() {
-    const { id, completed, content, onEditTodo } = this.props
+    const { id, completed, content, onEditTodo, onToggleStatus: toggleStatus } = this.props
     const editForm = <TodoFormEdit onEditTodo={onEditTodo} todoId={id} toggleEditForm={this.toggleEditForm} />
 
     return (
       <div>
-        <input type="checkbox" onChange={this.handleClick} checked={completed}/>
+        <input type="checkbox" onChange={() => toggleStatus()} checked={completed} />
 
         <span onClick={this.toggleEditForm} style={completed ? { textDecoration: "line-through" } : {}}>
+          {this.state.editable && editForm}
           <span>{id}</span>
-          <span>&nbsp;{completed ? "Complete" : "Incomplete"}</span>
           <span>&nbsp;{content}</span>
         </span>
-        <span>
-          {this.state.editable && editForm}
-          <span onClick={this.handleClick}>&nbsp;Mark complete</span>
-          <span onClick={this.handleDeleteTodo}>&nbsp;Delete</span>
-        </span>
+
+        <span onClick={this.handleDeleteTodo}>&nbsp;| X</span>
       </div>
     )
   }

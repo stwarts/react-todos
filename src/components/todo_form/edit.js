@@ -23,8 +23,8 @@ class TodoFormEdit extends React.Component {
     if (newContent && newContent.length > 0) {
       const editTodo = this.props.onEditTodo
 
-      const todo = editTodo(newContent)
-
+      editTodo(newContent)
+      
       this.props.toggleEditForm()
 
       this.clearContent()
@@ -41,7 +41,12 @@ class TodoFormEdit extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <input onBlur={this.handleSubmit} onChange={this.handleContentChange} value={this.state.content} />
+          <input
+            onBlur={this.handleSubmit}
+            onChange={this.handleContentChange}
+            value={this.state.content}
+            autoFocus
+          />
         </form>
       </div>
     )

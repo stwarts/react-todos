@@ -62,7 +62,6 @@ class App extends React.Component {
       todos: newTodos
     })
 
-    console.log(editedTodo)
     return editedTodo
   }
 
