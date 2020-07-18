@@ -5,7 +5,7 @@ class TodoFormEdit extends React.Component {
     super(props)
 
     this.state = {
-      content: ""
+      content: props.value
     }
   }
 
@@ -24,11 +24,11 @@ class TodoFormEdit extends React.Component {
       const editTodo = this.props.onEditTodo
 
       editTodo(newContent)
-      
-      this.props.toggleEditForm()
 
       this.clearContent()
     }
+
+    this.props.toggleEditForm()
   }
 
   clearContent = () => {
@@ -39,16 +39,12 @@ class TodoFormEdit extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            onBlur={this.handleSubmit}
-            onChange={this.handleContentChange}
-            value={this.state.content}
-            autoFocus
-          />
-        </form>
-      </div>
+      <input
+        onBlur={this.handleSubmit}
+        onChange={this.handleContentChange}
+        value={this.state.content}
+        autoFocus
+      />
     )
   }
 }

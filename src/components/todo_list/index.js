@@ -24,20 +24,19 @@ class TodoList extends React.Component {
     const todos = this.props.todos
 
     return (
-      <ul>
+      <div>
         {todos.map(todo =>
-          <li key={todo.id}>
-            <TodoItem
-              id={todo.id}
-              content={todo.content}
-              completed={todo.completed}
-              onToggleStatus={() => this.toggleStatus(todo.id)}
-              onEditTodo={(newContent => this.editTodo(todo.id, newContent))}
-              onDeleteTodo={() => this.deleteTodo(todo.id)}
-            />
-          </li>
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            content={todo.content}
+            completed={todo.completed}
+            onToggleStatus={() => this.toggleStatus(todo.id)}
+            onEditTodo={(newContent => this.editTodo(todo.id, newContent))}
+            onDeleteTodo={() => this.deleteTodo(todo.id)}
+          />
         )}
-      </ul>
+      </div>
     )
   }
 }

@@ -22,15 +22,15 @@ class TodoForm extends React.Component {
 
     if (newContent && newContent.length > 0) {
       const createTodo = this.props.onCreateTodo
-  
+
       const todo = {
         id: new Date().getTime(),
         content: this.state.content,
         complete: false
       }
-  
+
       createTodo(todo)
-  
+
       this.clearContent()
     }
   }
@@ -46,7 +46,7 @@ class TodoForm extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleContentChange} value={this.state.content} />
-          <button>Add</button>
+          <button style={{ display: "none" }}>Add</button>
         </form>
       </div>
     )
