@@ -31,7 +31,7 @@ class TodoItem extends React.Component {
 
     return (
       <div>
-        <input type="checkbox" onChange={() => toggleStatus()} checked={completed} />
+        <input type="checkbox" onChange={() => toggleStatus()} defaultChecked={completed} />
 
         <span onClick={this.toggleEditForm} style={completed ? { textDecoration: "line-through" } : {}}>
           {this.state.editable && editForm}
