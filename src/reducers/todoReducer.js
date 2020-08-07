@@ -30,11 +30,18 @@ export const todoReducer = (state = initialState, { type, payload }) => {
         todos: newTodos
       }
     case 'TODO_EDITED':
-      const { id: todoId, newContent } = payload
+      const { todoId, newContent } = payload
 
       newTodos = state.todos.map(todo => {
         return todo.id === todoId ? { ...todo, content: newContent } : todo
       })
+
+      return {
+        ...state,
+        todos: newTodos
+      }
+    case 'TODO_DELETED':
+      newTodos = state.todos.filter(todo => todo.id !== payload.todoId)
 
       return {
         ...state,

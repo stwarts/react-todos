@@ -5,12 +5,19 @@ export const createTodo = (content) => {
   }
 }
 
-export const editTodo = (id, newContent) => {
+export const editTodo = (todoId, newContent) => {
   return {
     type: 'TODO_EDITED',
     payload: { 
-      id,
+      todoId,
       newContent
     }
+  }
+}
+
+export const deleteTodo = (todoId) => {
+  return {
+    type: 'TODO_DELETED',
+    payload: { todoId }
   }
 }

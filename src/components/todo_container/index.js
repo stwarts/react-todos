@@ -2,7 +2,7 @@ import React from "react";
 import TodoList from "../todo_list"
 import TodoForm from "../todo_form"
 import { connect } from 'react-redux'
-import { createTodo, editTodo } from '../../actions/todoActions'
+import { createTodo, editTodo, deleteTodo } from '../../actions/todoActions'
 
 const setTodos = (todos) => {
   localStorage.setItem('todos', JSON.stringify(todos))
@@ -19,13 +19,8 @@ class TodoContainer extends React.Component {
     this.setState({ todos: todos })
   }
 
-  deleteTodo = (todoId) => {
-    const todos = this.state.todos
-    const newTodos = todos.filter(todo => todo.id !== todoId)
-
-    setTodos(newTodos)
-
-    this.setState({ todos: newTodos })
+  handleDeleteTodo = (todoId) => {
+    this.props.deleteTodo(todoId)
   }
 
   handleEditTodo = (todoId, newContent) => {
@@ -48,7 +43,7 @@ class TodoContainer extends React.Component {
           todos={this.props.todos}
           onToggleStatus={this.toggleStatus}
           onEditTodo={this.handleEditTodo}
-          onDeleteTodo={this.deleteTodo}
+          onDeleteTodo={this.handleDeleteTodo}
         />
       </div>
     )
@@ -61,7 +56,8 @@ const mapStateToProps = ({ todos }) => {
 
 const mapDispatchToProps = {
   createTodo,
-  editTodo
+  editTodo,
+  deleteTodo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer)
