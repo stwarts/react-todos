@@ -2,7 +2,7 @@ import { TODO_DISPATCHING_TYPES } from '../constants/todoDispatchingConstants'
 
 export const createTodo = (content) => {
   return {
-    type: TODO_DISPATCHING_TYPES.TODO_CREATED,
+    type: TODO_DISPATCHING_TYPES.TODO_ADDED,
     payload: { content }
   }
 }

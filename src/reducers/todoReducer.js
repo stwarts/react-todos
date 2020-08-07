@@ -8,7 +8,7 @@ export const todoReducer = (state = initialState, { type, payload }) => {
   let newTodos
 
   switch (type) {
-    case DISPATCHING.TODO_CREATED:
+    case DISPATCHING.TODO_ADDED:
       newTodos = [createTodoInstance(payload.content), ...state.todos]
 
       return {
