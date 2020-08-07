@@ -1,12 +1,6 @@
-const setTodos = (todos) => {
-  localStorage.setItem('todos', JSON.stringify(todos))
-}
+import { getItem } from '../utils/localStorageAccessor'
 
-const getTodos = () => {
-  return JSON.parse(localStorage.getItem('todos')) || []
-}
-
-const initialState = { todos: getTodos() }
+const initialState = { todos: getItem('todos') }
 
 const createTodoInstance = (content) => {
   const todo = {
@@ -31,7 +25,6 @@ export const todoReducer = (state = initialState, { type, payload }) => {
       }
     case 'TODO_EDITED':
       const { todoId, newAttributes } = payload
-      console.log(payload)
 
       newTodos = state.todos.map(todo => {
         return todo.id === todoId ? { ...todo, ...newAttributes } : todo

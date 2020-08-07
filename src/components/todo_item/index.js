@@ -27,7 +27,7 @@ class TodoItem extends React.Component {
 
 
   render() {
-    const { todo, onEditTodo, onDeleteTodo, onToggleStatus } = this.props
+    const { todo, onEditTodo, onDeleteTodo } = this.props
     const editForm = (
       <TodoFormEdit
         value={todo.content}
