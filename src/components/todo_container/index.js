@@ -2,7 +2,7 @@ import React from "react";
 import TodoList from "../todo_list"
 import TodoForm from "../todo_form"
 import { connect } from 'react-redux'
-import { createTodo } from '../../actions/todoActions'
+import { createTodo, editTodo } from '../../actions/todoActions'
 
 const setTodos = (todos) => {
   localStorage.setItem('todos', JSON.stringify(todos))
@@ -28,20 +28,10 @@ class TodoContainer extends React.Component {
     this.setState({ todos: newTodos })
   }
 
-  editTodo = (todoId, newContent) => {
-    const todos = this.state.todos
+  handleEditTodo = (todoId, newContent) => {
+    const { editTodo } = this.props
 
-    let editedTodo
-
-    const newTodos = todos.map(todo => {
-      return todo.id === todoId ? editedTodo = { ...todo, content: newContent } : todo
-    })
-
-    setTodos(newTodos)
-
-    this.setState({ todos: newTodos })
-
-    return editedTodo
+    editTodo(todoId, newContent)
   }
 
   handleCreateTodo = (content) => {
@@ -57,7 +47,7 @@ class TodoContainer extends React.Component {
         <TodoList
           todos={this.props.todos}
           onToggleStatus={this.toggleStatus}
-          onEditTodo={this.editTodo}
+          onEditTodo={this.handleEditTodo}
           onDeleteTodo={this.deleteTodo}
         />
       </div>
@@ -70,7 +60,8 @@ const mapStateToProps = ({ todos }) => {
 }
 
 const mapDispatchToProps = {
-  createTodo
+  createTodo,
+  editTodo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer)

@@ -19,10 +19,26 @@ const createTodoInstance = (content) => {
 }
 
 export const todoReducer = (state = initialState, { type, payload }) => {
+  let newTodos
+
   switch (type) {
     case 'TODO_CREATED':
+      newTodos = [...state.todos, createTodoInstance(payload.content)]
+
       return {
-        todos: [...state.todos, createTodoInstance(payload.content)]
+        ...state,
+        todos: newTodos
+      }
+    case 'TODO_EDITED':
+      const { id: todoId, newContent } = payload
+
+      newTodos = state.todos.map(todo => {
+        return todo.id === todoId ? { ...todo, content: newContent } : todo
+      })
+
+      return {
+        ...state,
+        todos: newTodos
       }
     default:
       return state
