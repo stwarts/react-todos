@@ -1,29 +1,21 @@
 import { getItem } from '../utils/localStorageAccessor'
+import { createTodoInstance } from '../utils/todoUtils'
+import { TODO_DISPATCHING_TYPES as DISPATCHING } from '../constants/todoDispatchingConstants'
 
 const initialState = { todos: getItem('todos') }
-
-const createTodoInstance = (content) => {
-  const todo = {
-    id: new Date().getTime(),
-    content: content,
-    complete: false
-  }
-
-  return todo
-}
 
 export const todoReducer = (state = initialState, { type, payload }) => {
   let newTodos
 
   switch (type) {
-    case 'TODO_CREATED':
+    case DISPATCHING.TODO_CREATED:
       newTodos = [createTodoInstance(payload.content), ...state.todos]
 
       return {
         ...state,
         todos: newTodos
       }
-    case 'TODO_EDITED':
+    case DISPATCHING.TODO_EDITED:
       const { todoId, newAttributes } = payload
 
       newTodos = state.todos.map(todo => {
@@ -34,7 +26,7 @@ export const todoReducer = (state = initialState, { type, payload }) => {
         ...state,
         todos: newTodos
       }
-    case 'TODO_DELETED':
+    case DISPATCHING.TODO_DELETED:
       newTodos = state.todos.filter(todo => todo.id !== payload.todoId)
 
       return {

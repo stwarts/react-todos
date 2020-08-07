@@ -1,13 +1,15 @@
+import { TODO_DISPATCHING_TYPES } from '../constants/todoDispatchingConstants'
+
 export const createTodo = (content) => {
   return {
-    type: 'TODO_CREATED',
+    type: TODO_DISPATCHING_TYPES.TODO_CREATED,
     payload: { content }
   }
 }
 
 export const editTodo = (todoId, newAttributes) => {
   return {
-    type: 'TODO_EDITED',
+    type: TODO_DISPATCHING_TYPES.TODO_EDITED,
     payload: { 
       todoId,
       newAttributes
@@ -17,7 +19,7 @@ export const editTodo = (todoId, newAttributes) => {
 
 export const deleteTodo = (todoId) => {
   return {
-    type: 'TODO_DELETED',
+    type: TODO_DISPATCHING_TYPES.TODO_DELETED,
     payload: { todoId }
   }
 }
