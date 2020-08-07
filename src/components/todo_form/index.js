@@ -23,13 +23,7 @@ class TodoForm extends React.Component {
     if (newContent && newContent.length > 0) {
       const createTodo = this.props.onCreateTodo
 
-      const todo = {
-        id: new Date().getTime(),
-        content: this.state.content,
-        complete: false
-      }
-
-      createTodo(todo)
+      createTodo(newContent)
 
       this.clearContent()
     }

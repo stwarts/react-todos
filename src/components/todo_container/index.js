@@ -2,6 +2,7 @@ import React from "react";
 import TodoList from "../todo_list"
 import TodoForm from "../todo_form"
 import { connect } from 'react-redux'
+import { createTodo } from '../../actions/todoActions'
 
 const setTodos = (todos) => {
   localStorage.setItem('todos', JSON.stringify(todos))
@@ -12,22 +13,6 @@ const getTodos = () => {
 }
 
 class TodoContainer extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      todos: getTodos()
-    }
-  }
-
-  createTodo = (newTodo) => {
-    const todos = [...this.state.todos, newTodo]
-
-    setTodos(todos)
-
-    this.setState({ todos: todos })
-  }
-
   toggleStatus = (todoId) => {
     const todos = this.state.todos.map(todo => {
       return todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
@@ -63,10 +48,10 @@ class TodoContainer extends React.Component {
     return editedTodo
   }
 
-  handleCreateTodo = () => {
+  handleCreateTodo = (content) => {
     const { createTodo } = this.props
 
-    createTodo()
+    createTodo(content)
   }
 
   render() {
@@ -74,7 +59,7 @@ class TodoContainer extends React.Component {
       <div>
         <TodoForm onCreateTodo={this.handleCreateTodo} />
         <TodoList
-          todos={this.state.todos}
+          todos={this.props.todos}
           onToggleStatus={this.toggleStatus}
           onEditTodo={this.editTodo}
           onDeleteTodo={this.deleteTodo}
@@ -88,10 +73,8 @@ const mapStateToProps = ({ todos }) => {
   return { todos }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createTodo: () => dispatch({ type: 'CREATE_TODO' })
-  }
+const mapDispatchToProps = {
+  createTodo
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer)

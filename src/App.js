@@ -11,15 +11,24 @@ const getTodos = () => {
   return JSON.parse(localStorage.getItem('todos')) || []
 }
 
-const initialState = getTodos()
+const initialState = { todos: getTodos() }
 
-const reducer2BCalled = (state = initialState, action) => {
-  console.log(action)
+const createTodoInstance = (content) => {
+  const todo = {
+    id: new Date().getTime(),
+    content: content,
+    complete: false
+  }
 
-  switch (action.type) {
-    case 'CREATE_TODO':
-      console.log('creating todo')
-      return state
+  return todo
+}
+
+const reducer2BCalled = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case 'TODO_CREATED':
+      return {
+        todos: [...state.todos, createTodoInstance(payload.content)]
+      }
     default:
       return state
   }
