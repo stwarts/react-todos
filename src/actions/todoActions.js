@@ -5,12 +5,12 @@ export const createTodo = (content) => {
   }
 }
 
-export const editTodo = (todoId, newContent) => {
+export const editTodo = (todoId, newAttributes) => {
   return {
     type: 'TODO_EDITED',
     payload: { 
       todoId,
-      newContent
+      newAttributes
     }
   }
 }

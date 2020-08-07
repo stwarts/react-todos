@@ -10,6 +10,12 @@ class TodoItem extends React.Component {
     }
   }
 
+  handleToggleStatus = () => {
+    const { todo, onEditTodo } = this.props
+
+    onEditTodo(todo.id, { completed: !todo.completed})
+  }
+
   toggleEditForm = () => {
     const { editable } = this.state
 
@@ -21,9 +27,15 @@ class TodoItem extends React.Component {
 
 
   render() {
-    const { id, completed, content } = this.props
-    const { onEditTodo, onDeleteTodo, onToggleStatus } = this.props
-    const editForm = <TodoFormEdit value={content} onEditTodo={onEditTodo} todoId={id} toggleEditForm={this.toggleEditForm} />
+    const { todo, onEditTodo, onDeleteTodo, onToggleStatus } = this.props
+    const editForm = (
+      <TodoFormEdit
+        value={todo.content}
+        onEditTodo={onEditTodo}
+        todoId={todo.id}
+        toggleEditForm={this.toggleEditForm} 
+      />
+    )
 
     return (
       <div>
@@ -31,15 +43,14 @@ class TodoItem extends React.Component {
           <div>
             <input
               type="checkbox"
-              onChange={() => onToggleStatus()}
-              defaultChecked={completed}
+              onChange={this.handleToggleStatus}
+              defaultChecked={todo.completed}
             />
 
-            <span onClick={this.toggleEditForm} style={completed ? { textDecoration: "line-through" } : {}}>
-              <span>{id}</span>
-              <span>&nbsp;{content}</span>
+            <span onClick={this.toggleEditForm} style={todo.completed ? { textDecoration: "line-through" } : {}}>
+              <span>{todo.content}</span>
             </span>
-            <span onClick={() => onDeleteTodo()}>&nbsp;| X</span>
+            <span onClick={() => onDeleteTodo(todo.id)}>&nbsp;| X</span>
           </div>
         }
       </div>

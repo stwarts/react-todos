@@ -30,10 +30,11 @@ export const todoReducer = (state = initialState, { type, payload }) => {
         todos: newTodos
       }
     case 'TODO_EDITED':
-      const { todoId, newContent } = payload
+      const { todoId, newAttributes } = payload
+      console.log(payload)
 
       newTodos = state.todos.map(todo => {
-        return todo.id === todoId ? { ...todo, content: newContent } : todo
+        return todo.id === todoId ? { ...todo, ...newAttributes } : todo
       })
 
       return {
