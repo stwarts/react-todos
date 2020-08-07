@@ -1,79 +1,38 @@
 import React from "react";
-import TodoList from "./components/todo_list"
-import TodoForm from "./components/todo_form"
+import TodoContainter from "./components/todo_container"
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 const setTodos = (todos) => {
   localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-
 const getTodos = () => {
   return JSON.parse(localStorage.getItem('todos')) || []
 }
 
+const initialState = getTodos()
+
+const reducer2BCalled = (state = initialState, action) => {
+  console.log(action)
+
+  switch (action.type) {
+    case 'CREATE_TODO':
+      console.log('creating todo')
+      return state
+    default:
+      return state
+  }
+}
+
+const store = createStore(reducer2BCalled)
+
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      todos: getTodos()
-    }
-  }
-
-  createTodo = (newTodo) => {
-    const todos = [...this.state.todos, newTodo]
-
-    setTodos(todos)
-
-    this.setState({ todos: todos })
-  }
-
-  toggleStatus = (todoId) => {
-    const todos = this.state.todos.map(todo => {
-      return todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
-    })
-
-    setTodos(todos)
-
-    this.setState({ todos: todos })
-  }
-
-  deleteTodo = (todoId) => {
-    const todos = this.state.todos
-    const newTodos = todos.filter(todo => todo.id !== todoId)
-
-    setTodos(newTodos)
-
-    this.setState({ todos: newTodos })
-  }
-
-  editTodo = (todoId, newContent) => {
-    const todos = this.state.todos
-
-    let editedTodo
-
-    const newTodos = todos.map(todo => {
-      return todo.id === todoId ? editedTodo = { ...todo, content: newContent } : todo
-    })
-
-    setTodos(newTodos)
-
-    this.setState({ todos: newTodos })
-
-    return editedTodo
-  }
-
   render() {
     return (
-      <div>
-        <TodoForm onCreateTodo={this.createTodo} />
-        <TodoList
-          todos={this.state.todos}
-          onToggleStatus={this.toggleStatus}
-          onEditTodo={this.editTodo}
-          onDeleteTodo={this.deleteTodo}
-        />
-      </div>
+      <Provider store={store}>
+        <TodoContainter />
+      </Provider>
     )
   }
 }
