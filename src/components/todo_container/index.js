@@ -8,10 +8,6 @@ const setTodos = (todos) => {
   localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-const getTodos = () => {
-  return JSON.parse(localStorage.getItem('todos')) || []
-}
-
 class TodoContainer extends React.Component {
   toggleStatus = (todoId) => {
     const todos = this.state.todos.map(todo => {
