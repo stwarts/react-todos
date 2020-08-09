@@ -3,7 +3,7 @@ import TodoList from "../todo_list"
 import TodoForm from "../todo_form"
 import TodoFilter from "../todoFilter"
 import { connect } from 'react-redux'
-import { createTodo, editTodo, deleteTodo, changeFilter } from '../../actions/todoActions'
+import { createTodo, editTodo, deleteTodo } from '../../actions/todoActions'
 import { filterTodos } from '../../utils/todoUtils'
 
 class TodoContainer extends React.Component {
@@ -25,15 +25,11 @@ class TodoContainer extends React.Component {
 
   render() {
     const { currentFilter, todos } = this.props
-    const { changeFilter } = this.props
 
     return (
       <div>
         <TodoForm onCreateTodo={this.handleCreateTodo} />
-        <TodoFilter
-          currentFilter={currentFilter}
-          changeFilter={changeFilter}
-        />
+        <TodoFilter />
         <TodoList
           todos={filterTodos(todos, currentFilter)}
           onEditTodo={this.handleEditTodo}
@@ -54,8 +50,7 @@ const mapStateToProps = ({ todos, currentFilter }) => {
 const mapDispatchToProps = {
   createTodo,
   editTodo,
-  deleteTodo,
-  changeFilter
+  deleteTodo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer)

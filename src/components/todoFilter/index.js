@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { changeFilter } from '../../actions/todoActions'
 
 class TodoFilter extends React.Component {
   render() {
@@ -37,4 +39,12 @@ class TodoFilter extends React.Component {
   }
 }
 
-export default TodoFilter
+const mapStateToProps = ({ currentFilter }) => {
+  return { currentFilter }
+}
+
+const mapDispatchToProps = {
+  changeFilter
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoFilter)
