@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 # Demo
-![alt](http://g.recordit.co/H8psOoTJyd.gif)
+![alt](http://g.recordit.co/tQLxGpGF1s.gif)
 
 ## Available Scripts
 
