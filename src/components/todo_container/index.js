@@ -4,7 +4,7 @@ import TodoForm from "../todo_form"
 import TodoFilter from "../todoFilter"
 import { connect } from 'react-redux'
 import { createTodo, editTodo, deleteTodo } from '../../actions/todoActions'
-import { filterTodos } from '../../utils/todoUtils'
+import { filterTodos, countTodos } from '../../utils/todoUtils'
 
 class TodoContainer extends React.Component {
   handleDeleteTodo = (todoId) => {
@@ -29,7 +29,7 @@ class TodoContainer extends React.Component {
     return (
       <div>
         <TodoForm onCreateTodo={this.handleCreateTodo} />
-        <TodoFilter />
+        <TodoFilter incompleteCount={countTodos(todos, 'incomplete')}/>
         <TodoList
           todos={filterTodos(todos, currentFilter)}
           onEditTodo={this.handleEditTodo}

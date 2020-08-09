@@ -4,7 +4,7 @@ import { changeFilter } from '../../actions/todoActions'
 
 class TodoFilter extends React.Component {
   render() {
-    const { currentFilter, changeFilter } = this.props
+    const { currentFilter, changeFilter, incompleteCount } = this.props
 
     return (
       <div>
@@ -33,6 +33,9 @@ class TodoFilter extends React.Component {
             onChange={() => changeFilter('incomplete')}
             checked={currentFilter === 'incomplete'}
           /> Incomplete
+          {incompleteCount > 0 &&
+            <span> ({incompleteCount} item(s))</span>
+          }
         </label>
       </div>
     )
