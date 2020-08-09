@@ -10,7 +10,7 @@ export const createTodo = (content) => {
 export const editTodo = (todoId, newAttributes) => {
   return {
     type: TODO_DISPATCHING_TYPES.TODO_EDITED,
-    payload: { 
+    payload: {
       todoId,
       newAttributes
     }
