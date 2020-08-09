@@ -1,18 +1,11 @@
 import React from "react";
 import TodoList from "../todo_list"
 import TodoForm from "../todo_form"
+import TodoFilter from "../todoFilter"
 import { connect } from 'react-redux'
-import { createTodo, editTodo, deleteTodo } from '../../actions/todoActions'
+import { createTodo, editTodo, deleteTodo, changeFilter } from '../../actions/todoActions'
 
 class TodoContainer extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      filter: 'all'
-    }
-  }
-
   handleDeleteTodo = (todoId) => {
     this.props.deleteTodo(todoId)
   }
@@ -29,54 +22,30 @@ class TodoContainer extends React.Component {
     createTodo(content)
   }
 
-  changeFilter = (e) => {
-    this.setState({ filter: e.target.value })
-  }
-
   fitlerTodos = (todos) => {
-    switch (this.state.filter) {
+    switch (this.props.currentFilter) {
       case 'done':
         return todos.filter(todo => todo.completed)
       case 'incomplete':
         return todos.filter(todo => !todo.completed)
-      default: 
+      default:
         return todos
     }
   }
 
   render() {
+    const { currentFilter, todos } = this.props
+    const { changeFilter } = this.props
+
     return (
       <div>
         <TodoForm onCreateTodo={this.handleCreateTodo} />
-        <label>
-          <input
-            type="radio"
-            value='all'
-            onChange={this.changeFilter}
-            checked={this.state.filter === 'all'}
-          /> All
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            value='done'
-            onChange={this.changeFilter}
-            checked={this.state.filter === 'done'}
-          /> Done
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            value='incomplete'
-            onChange={this.changeFilter}
-            checked={this.state.filter === 'incomplete'}
-          /> Incomplete
-        </label>
-
+        <TodoFilter
+          currentFilter={currentFilter}
+          changeFilter={changeFilter}
+        />
         <TodoList
-          todos={this.fitlerTodos(this.props.todos)}
+          todos={this.fitlerTodos(todos)}
           onEditTodo={this.handleEditTodo}
           onDeleteTodo={this.handleDeleteTodo}
         />
@@ -85,14 +54,18 @@ class TodoContainer extends React.Component {
   }
 }
 
-const mapStateToProps = ({ todos }) => {
-  return { todos }
+const mapStateToProps = ({ todos, currentFilter }) => {
+  return {
+    currentFilter,
+    todos
+  }
 }
 
 const mapDispatchToProps = {
   createTodo,
   editTodo,
-  deleteTodo
+  deleteTodo,
+  changeFilter
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoContainer)

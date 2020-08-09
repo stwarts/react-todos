@@ -2,7 +2,7 @@ import { getItem } from '../utils/localStorageAccessor'
 import { createTodoInstance } from '../utils/todoUtils'
 import { TODO_DISPATCHING_TYPES as DISPATCHING } from '../constants/todoDispatchingConstants'
 
-const initialState = { todos: getItem('todos') }
+const initialState = { todos: getItem('todos'), currentFilter: 'all' }
 
 export const todoReducer = (state = initialState, { type, payload }) => {
   let newTodos
@@ -32,6 +32,11 @@ export const todoReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         todos: newTodos
+      }
+    case DISPATCHING.FILTER_CHANGED:
+      return {
+        ...state,
+        currentFilter: payload.filter
       }
     default:
       return state

@@ -23,3 +23,10 @@ export const deleteTodo = (todoId) => {
     payload: { todoId }
   }
 }
+
+export const changeFilter = (filter) => {
+  return {
+    type: TODO_DISPATCHING_TYPES.FILTER_CHANGED,
+    payload: { filter }
+  }
+}
