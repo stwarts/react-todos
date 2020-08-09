@@ -4,6 +4,7 @@ import TodoForm from "../todo_form"
 import TodoFilter from "../todoFilter"
 import { connect } from 'react-redux'
 import { createTodo, editTodo, deleteTodo, changeFilter } from '../../actions/todoActions'
+import { filterTodos } from '../../utils/todoUtils'
 
 class TodoContainer extends React.Component {
   handleDeleteTodo = (todoId) => {
@@ -22,17 +23,6 @@ class TodoContainer extends React.Component {
     createTodo(content)
   }
 
-  fitlerTodos = (todos) => {
-    switch (this.props.currentFilter) {
-      case 'done':
-        return todos.filter(todo => todo.completed)
-      case 'incomplete':
-        return todos.filter(todo => !todo.completed)
-      default:
-        return todos
-    }
-  }
-
   render() {
     const { currentFilter, todos } = this.props
     const { changeFilter } = this.props
@@ -45,7 +35,7 @@ class TodoContainer extends React.Component {
           changeFilter={changeFilter}
         />
         <TodoList
-          todos={this.fitlerTodos(todos)}
+          todos={filterTodos(todos, currentFilter)}
           onEditTodo={this.handleEditTodo}
           onDeleteTodo={this.handleDeleteTodo}
         />

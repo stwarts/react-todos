@@ -7,3 +7,14 @@ export const createTodoInstance = (content) => {
 
   return todo
 }
+
+export const filterTodos = (todos, criterion) => {
+  switch (criterion) {
+    case 'done':
+      return todos.filter(todo => todo.completed)
+    case 'incomplete':
+      return todos.filter(todo => !todo.completed)
+    default:
+      return todos
+  }
+}
