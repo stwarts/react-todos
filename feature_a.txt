@@ -1,3 +1,3 @@
 feature a
 fix bug a
-coworker feature a1
+fix b causes conflict with a
