@@ -1,2 +1,3 @@
 feature a
 fix bug a
+fix b causes conflict with a
